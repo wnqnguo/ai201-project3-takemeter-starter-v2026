@@ -186,6 +186,21 @@ Three labels have fewer than 8 posts in the test split, so their scores will swi
 
 **What the first run did:** It predicted `question` for all 23 test posts: accuracy 65.2%, macro F1 0.197, F1 0.0 for the three smaller labels and 0.789 for `question`. I wrote my targets before training, so I am not changing them to fit this result.
 
+**Second run (stretch): `EPOCHS` 3 to 10.** I changed only `EPOCHS`, from 3 to 10, as I declared above before running it. Learning rate, batch size, 128 tokens, seed 42, the data and the split are unchanged. Numbers are in `results_run2.json`, and the first run's are in `results_run1.json` and `results.json`.
+
+| Measure | Run 1 (3 epochs) | Run 2 (10 epochs) | Change |
+|---|---|---|---|
+| Accuracy | 0.652 (15 of 23) | 0.652 (15 of 23) | 0.000 |
+| Macro F1 | 0.197 | 0.197 | 0.000 |
+| F1 `question` | 0.789 | 0.789 | 0.000 |
+| F1 `argued_opinion` / `unsupported_opinion` / `personal_share` | 0.0 / 0.0 / 0.0 | 0.0 / 0.0 / 0.0 | 0.000 |
+| Mean confidence when right | 0.592 | 0.698 | +0.106 |
+| Mean confidence when wrong | 0.576 | 0.637 | +0.061 |
+| Accuracy, most-confident third | 0.857 | 0.714 | -0.143 |
+| Accuracy, least-confident third | 0.429 | 0.429 | 0.000 |
+
+What moved: nothing about which posts it got right. Both runs predicted `question` for all 23 test posts. The model became more confident (about 6 to 11 points higher) without becoming more correct, and its most-confident third got worse. My reading is that training longer does not help when three labels have only 12 training examples each and `question` has 68; the model needs more examples of the small labels, or a loss that weights them more, and I have not tried either.
+
 ---
 
 ## How I Used AI

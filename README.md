@@ -163,44 +163,42 @@ Apply in this order:
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`, fine-tuned for 4-way classification with the notebook's `AutoModelForSequenceClassification` head.
 
-**Base model:**
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, 128 tokens per post, seed 42. Run on `mps` (the notebook's label for the GPU path on my Intel MacBook Pro) with torch 2.2.2.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Anything I changed from the defaults, and why:** Nothing. I kept every default for this first run so I would have a baseline to compare against.
 
-**Anything I changed from the defaults, and why:**
+**Split sizes:** 104 train / 23 validation / 23 test (stratified 70/15/15 of 150 posts). Test split by label:
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+| Label | Train | Val | Test |
+|---|---|---|---|
+| `argued_opinion` | 12 | 2 | 2 |
+| `unsupported_opinion` | 12 | 3 | 3 |
+| `personal_share` | 12 | 3 | 3 |
+| `question` | 68 | 15 | 15 |
 
+Three labels have fewer than 8 posts in the test split, so their scores will swing a lot between seeds.
 
+**What the first run did:** It predicted `question` for all 23 test posts: accuracy 65.2%, macro F1 0.197, F1 0.0 for the three smaller labels and 0.789 for `question`. I wrote my targets before training, so I am not changing them to fit this result.
 
 ---
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
+**Moment 1: stress-testing my labels**
 
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
+- *What I asked for:* I gave Claude my label definitions and asked it to write eight posts that sit on the boundaries between labels, without telling me which label each one belongs to. I labeled them myself first.
+- *What came back:* Eight boundary posts. I matched Claude's intended labels on 4 of 8. The four misses were posts 1, 2, 5 and 7, and they exposed that I was handling "anyone else dealing with this?" posts and "nobody I know does this" anecdotes inconsistently.
+- *What I changed:* I rewrote my decision rule into an ordered one. A real request for help makes it a `question`, and "anyone else...?" invitations and challenges to a claim do not count as requests. A claim is `argued_opinion` only if its support is checkable (a number, a specific situation in concrete detail, a named tool or incident, or a linked source), and a general impression like "nobody I know does it" is `unsupported_opinion`.
 
-**Moment 1**
+**Moment 2: pre-labeling, and catching my class balance**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I scraped about 200 posts and asked Claude to add the ones not already in `labels.csv`, then pre-label them using my definitions and the decision rule.
+- *What came back:* 123 labeled posts. When it counted them, `question` was 73% of the file, over the 70% cap, and the three other labels were far below the 40 examples my criterion 3 asked for. Claude also pointed out that its own earlier claim that the brief allows comments as posts was not in the brief, so I did not use comments.
+- *What I changed:* I stopped at 150 posts instead of 200, swapped about a dozen of the shortest `question` posts for opinion and personal posts I found by hand, and lowered criterion 3 from 40 to 15, writing down why before training. I also changed criterion 2 from 70% to 75%, because always guessing `question` would already score about 65%.
 
-**Moment 2**
-
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
-
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** I labeled 20 posts cold with no AI (marked `cold` in the note column). I discussed 20 more with Claude while working out the decision rule (`discussed`). Claude pre-labeled the other 110 using my definitions and decision rule (`pre-labeled`), and 30 of those rows carry a `borderline` note naming the two labels they sit between. <!-- TODO (Faye): after reading every pre-labeled row, add how many you changed and which labels you changed most. -->
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 

@@ -55,23 +55,23 @@ whether you hit them:
 
 Every label has an F1 of at least 0.55 on the held-out test split.
 
-**Why this target:** With four labels, random guessing scores about 0.25 per label, so 0.55 is clearly better than chance. I expect my thinnest label to have only about 7 or 8 posts in the test split, so its score will swing between seeds, which is why I'm not setting the bar higher.
+**Why this target:** With four labels, random guessing scores about 0.25 per label, so 0.55 is clearly better than chance. I am aiming for about 150 labeled posts, so the test split will be about 22 posts and my thinnest label (`argued_opinion`, 16 examples) will have only about 2 or 3 of them, so one post moves its recall by 33 to 50 points and its score will swing between seeds, which is why I'm not setting the bar higher and why I expect this target may miss.
 
 ---
 
 ## 2.
 
-Overall accuracy on the held-out test split is at least 70%.
+Overall accuracy on the held-out test split is at least 75%.
 
-**Why this target:** Random guessing gets about 25%, and always guessing my biggest label would get about 40%, so 70% is well above both. It is deliberately ambitious: `personal_share` vs. the opinion labels and `question` vs. the opinion labels are fuzzy boundaries, and I expect to miss it if my labels are noisy.
+**Why this target:** Random guessing gets about 25%, but always guessing my biggest label, `question`, would get about 65%, so a score only slightly above that would not show the model learned anything. 75% is 10 points above that baseline. It is deliberately ambitious: `personal_share` vs. the opinion labels and `question` vs. the opinion labels are fuzzy boundaries, and I expect to miss it if my labels are noisy. With about 22 test posts, one post is about 4.5 points, so I know the score will move between seeds.
 
 ---
 
 ## 3.
 
-The smallest label has at least 50 examples in `labels.csv`.
+The smallest label has at least 15 examples in `labels.csv`.
 
-**Why this target:** The test split is 15%, so 50 examples gives about 8 in test, which is where the notebook starts to flag a label as too thin. I have seen a lot of `question` posts in r/ExperiencedDevs, so I expect to have to collect the other types on purpose.
+**Why this target:** After collecting 150 posts, my thinnest label, `argued_opinion`, has 16 examples, and I could not add more without removing the `question` posts that make up most of what r/ExperiencedDevs actually posts. 15 is the lowest I would accept: with 15% of the data in the test split, that is only about 2 or 3 test posts, so I know that label's score will be noisy. I first wanted 40, but 4 labels x 40 would need 160 posts with none above 70%, which my community does not have. I am setting the floor at what my data supports, and saying so now, before training.
 
 ---
 
@@ -87,7 +87,7 @@ When I label the staff's 30-post set, I agree with the staff label on at least 2
 
 On the test split, the half of predictions with the highest confidence is more accurate than the lowest-confidence half by at least 10 points.
 
-**Why this target:** A confident prediction should be right more often than an unsure one. The test split is about 30 posts, so each half is about 15 and one post moves accuracy by about 7 points. A gap under about 10 could be luck.
+**Why this target:** A confident prediction should be right more often than an unsure one. The test split is about 22 posts (15% of about 150), so each half is about 11 and one post moves accuracy by about 9 points. A gap under about 10 points is within one post and could be luck.
 
 ---
 

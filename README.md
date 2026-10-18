@@ -119,19 +119,19 @@ Apply in this order:
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:** Public posts from r/ExperiencedDevs, sampled across New, Hot, and Top so weak posts are included.
+**Where the posts came from:** Public posts from r/ExperiencedDevs. I read and pasted the first posts by hand, then scraped a batch of about 200 recent posts with a browser tool (Thunderbit) and added the ones not already in the file. Scraped posts are stored as title plus body, with no usernames. Because most posts in this community end with a request for advice, `question` was over 70% of my first 150, so I removed some `question` posts and swapped in opinion and personal posts I found by hand. That is why the file stops at 150 rows, not 200.
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** I labelled 20 posts cold first (no AI, no tools, only my definitions), and marked them `cold` in the note column. I discussed another 20 with Claude in chat while I was working out the decision rule, and marked them `discussed`. I used Claude to pre-label the remaining 110 posts by giving it my definitions and decision rule, and marked them `pre-labeled`. 30 rows also carry a `borderline` note naming the two labels they sit between. <!-- TODO (Faye): after you read through every pre-labeled row, replace this line with how many you changed and which labels you changed most. -->
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `question` | 98 | 65.3% |
+| `personal_share` | 18 | 12.0% |
+| `unsupported_opinion` | 18 | 12.0% |
+| `argued_opinion` | 16 | 10.7% |
+| **Total** | 150 | 100% |
 
 **Three hard cases**
 

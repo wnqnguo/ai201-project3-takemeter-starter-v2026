@@ -42,7 +42,7 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-TakeMeter sorts posts from r/ExperiencedDevs, a public subreddit where working software engineers discuss careers, teams, and engineering practice. It labels each post by what kind of post it is and how well it is supported: an opinion backed by something specific, an opinion with nothing behind it, venting, or a question. The goal is to tell substantial posts from noise the way a regular of the community would, using distinctions I can state in a sentence and apply the same way twice.
+TakeMeter sorts posts from r/ExperiencedDevs, a public subreddit where working software engineers discuss careers, teams, and engineering practice. It labels each post by what kind of post it is and how well it is supported: an opinion backed by something specific, an opinion with nothing behind it, a personal share (a feeling or an experience), or a question. The goal is to tell substantial posts from noise the way a regular of the community would, using distinctions I can state in a sentence and apply the same way twice.
 
 ---
 
@@ -63,49 +63,54 @@ TakeMeter sorts posts from r/ExperiencedDevs, a public subreddit where working s
 **Definition:** A claim someone could argue with, backed by something specific such as a number, a real experience, or a named tool or incident.
 
 **Example 1:**
-> TODO: paste a real post
+> A post titled as a question about LLM-written documentation becoming unreadable. It argues docs have gotten worse and backs this with the writer's own experience: in the industry since 2013, hired four months ago, and now faced with giant generated CLI commands, large Terraform files, and YAML written for LLMs. It never asks readers for help; the title question is rhetorical.
 
 **Example 2:**
-> TODO: paste a real post
+> A post whose title cites a study finding about reduced brain activity among ChatGPT users. It links two news reports, quotes specific results (a 21% improvement with AI, then 15.3% worse unassisted by week four), and argues the same loss of skills is even more prevalent in software development. It does not ask readers anything.
 
 ### `unsupported_opinion`
 
 **Definition:** A confident claim someone could argue with, with nothing specific offered to support it.
 
 **Example 1:**
-> TODO: paste a real post
+> "Datadog is objectively better than Grafana, Chronosphere" (post title). The body lists feature areas (traces, logs, dashboards, alerting) but gives no comparison, number, or example for any of them.
 
 **Example 2:**
-> TODO: paste a real post
+> A Meta post claiming the subreddit is being taken over by hobbyists and students who have never been paid as developers. It illustrates this with a generic five-step pattern of how comment chains go, but gives no number, no named thread, and no specific incident, and it offers no solution.
 
-### `venting`
+### `personal_share`
 
-**Definition:** A post that mainly expresses frustration or feeling rather than making a claim to argue.
+**Definition:** A post that mainly expresses a feeling or recounts the writer's own experience, with no ask for advice or information and no claim offered for debate.
 
 **Example 1:**
-> TODO: paste a real post
+> A writer recounts three years of heavy AI coding tool use, then stopping because of how it affected their wellbeing, and says they are sharing the story in case others relate. They explicitly make no claim about AI quality or productivity and ask readers for nothing.
 
 **Example 2:**
-> TODO: paste a real post
+> A manager posts an update to an earlier thread: their team improved, was then laid off, and a new disengaged team now reports to them. It describes events and ends on stress and uncertainty ("unsure where to go from here") without asking for advice or making a claim to debate.
 
 ### `question`
 
 **Definition:** A post that mainly asks for help, advice, or information rather than making a point.
 
 **Example 1:**
-> TODO: paste a real post
+> "How do you explain a race condition to a non-technical person?" (post title). The writer describes two analogies that did not work and closes by asking whether they are missing a principle for communicating technical problems.
 
 **Example 2:**
-> TODO: paste a real post
+> A teacher of first-year IT students asks which key skills and topics to cover for requirements gathering and project management, and asks for resource recommendations. They list their current topic ideas as background, but the post exists to ask for recommendations.
 
 ### The hardest boundary
 
-**Which two labels:** `venting` vs. the two opinion labels (many vents carry a claim, and many opinions are written angrily). Second candidate: `argued_opinion` vs. `unsupported_opinion`.
+**Which two labels:** `personal_share` vs. the opinion labels (many personal posts carry a claim, and many opinions are written with strong feeling). Second candidates: `question` vs. the opinion labels, and `argued_opinion` vs. `unsupported_opinion`.
 
 **The decision rule I used every time:**
 <!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
      if the tone is heated." -->
-Draft: if the post makes a claim someone could argue with, it is an opinion even when the tone is angry; if it mainly expresses a feeling, it is `venting`. Within opinions, it is `argued_opinion` only if the support is specific (a number, a real experience, a named tool or incident), otherwise `unsupported_opinion`.
+Apply in this order:
+1. If the post requests advice or information the writer doesn't have, it is a `question`. A rhetorical question, or one that invites readers to agree or debate a view the writer has already stated, is not an ask and is treated as part of the opinion. An invitation to relate or share similar experiences is not an ask either.
+2. Otherwise, if the post makes a claim someone could argue with, it is an opinion even when the tone is angry: `argued_opinion` if the support is specific (a number, a real experience, a named tool or incident), otherwise `unsupported_opinion`.
+3. Otherwise, if it mainly expresses a feeling or recounts the writer's own experience, it is `personal_share`.
+
+**The borderline post:** A post whose title says AI has made the 80/20 rule worse and is killing the writer's passion for creative projects. It argues that AI gives the first 80% for free but makes the last 20% harder to justify, and supports that with a story about a vibecoded game. It then ends by describing frustration and loss of direction, with no question or ask. It could be `argued_opinion` (it has a thesis and an example) or `personal_share` (the title and closing are about feeling). Under my rule I label it `argued_opinion`: it states a thesis someone could argue with and supports it with a specific example, so step 2 applies before step 3, even though the tone is emotional.
 
 ---
 
@@ -134,25 +139,25 @@ Say so plainly — the disclosure is required, not penalised. -->
      been, and what you chose. These are worth more than the easy 190. -->
 
 **1.**
-> *The post:*
+> *The post:* A manager asks how to handle developers' unrequested AI-built side projects and dashboards, which cause duplicated work and leave the team unsure what is going on. It describes specific incidents and claims AI makes people talk less, then closes by asking for practical suggestions.
 >
-> *Could have been:*
+> *Could have been:* `question` or `argued_opinion`
 >
-> *I chose, because:*
+> *I chose `question`, because:* the post ends by asking for advice and its claims serve as context for that ask. The one claim about AI reducing conversation rests only on "I've noticed," so it is not strongly argued either.
 
 **2.**
-> *The post:*
+> *The post:* A senior engineer with about 12 years of experience describes being passed over for promotion while less experienced colleagues advance, and asks what to do. It has concrete specifics (years without promotion, five managers in two years) and a frustrated tone.
 >
-> *Could have been:*
+> *Could have been:* `question` or `personal_share`
 >
-> *I chose, because:*
+> *I chose `question`, because:* it opens with a request for advice and closes with "what do I do here?", so the ask decides the label even though the tone is frustrated.
 
 **3.**
-> *The post:*
+> *The post:* An engineer at a large tech company notes that monthly AI spend splits into a low-three-figure group and a low-four-figure group, and says the heavy spenders do not look more productive. They then ask the heavy spenders about their workflow and ask managers how they view both groups.
 >
-> *Could have been:*
+> *Could have been:* `question` or `argued_opinion`
 >
-> *I chose, because:*
+> *I chose `question`, because:* the post ends with several direct questions to readers. Its main claim (higher spend does not mean higher productivity) is only anecdotal and is offered as the reason for asking.
 
 ---
 

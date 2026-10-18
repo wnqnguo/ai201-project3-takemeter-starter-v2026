@@ -37,6 +37,10 @@
 
 <!-- ═══════════════════════ UNIT 5 — THE BUILD ═══════════════════════ -->
 
+## Stretch Declaration
+
+**Second training run (declared before building it):** My first run (3 epochs) predicted `question` for every test post. For the second run I will change exactly one hyperparameter, `EPOCHS`, from 3 to 10, and keep everything else the same (learning rate 2e-5, batch size 16, 128 tokens, seed 42, same data and split). I will report which numbers moved against the first run, and by how much, in "The Training Run". The first run's numbers are saved in `results_run1.json`.
+
 ## What This Does
 
 <!-- Your community, and what your classifier sorts posts into. Three or four

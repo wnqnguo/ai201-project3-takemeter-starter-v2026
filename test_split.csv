@@ -1,0 +1,196 @@
+text,label,note
+"Is there a word for an old system breaking right as you're about to replace it with a new system?
+I've noticed this phenomenon happening more than a few times over my career, but I don't have a good word for it.
+The exact scenario is this: we (the software developers/architects/etc) have identified an application or a piece of code that is substandard and needs to be addressed. Usually, it's a system that's been hobbling along and ""working"" for a while, but we've finally decided that we need to fix it for real with a comprehensive solution. We get started on that solution. Things are progressing well, even to the point of almost being ready to deploy, but not quite. This is the key element that makes this scenario so annoying; the new system is not quite ready for primetime, but it's close.
+At this exact moment, the old system decides to utterly crap out and resources have to be diverted to fix it one last time. We're a small team, so we are the ones that maintain the codebase as well as develop new code. Thus, the old system failing halts the progress on the new system right at the point of it coming into its own and making the old system irrelevant.
+Some software terms that are close or related: yak-shaving, band-aid solution. Heck, even Murphy's Law applies, but it seems like there would be a software engineering specific term for this.
+(Reposting with appropriate flair.)",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wbq0ny/is_there_a_word_for_an_old_system_breaking_right/
+"Logging when thread collisions are resolved/encountered
+I’m building some asynchronous & threaded processes in my application and I have built out the error handling/collision detection portion. I’ve added logging to the explicit error handling catch blocks, but I also have places where I detect and resolve issues that aren’t necessarily throws. Think processes that are locked and detecting when another thread is trying to access that locked process.
+I started thinking about adding logs to the “thread collision handling” portion of the code so that I can be aware how frequently we encounter this issue since real world often differs from in-house testing.
+Other than generating noise in the logs, would you call this bad practice? If so, how would you go about tracking how frequently these threading issues are encountered? Am I trying to measure the wrong thing and am way off base? Is it a concern that I’m trying to measure how frequently we encounter threading issues?",question,cold; https://www.reddit.com/r/ExperiencedDevs/comments/1w117dq/logging_when_thread_collisions_are/
+"Duplicating data versus service reliability
+So this came up recently. A service that we rely on for financial data had an issue in production and went down for about an hour on a Monday around noon. My team got pinged about it and from the error message it seemed like we couldn't connect to the data source. So we did some digging yada yada and it turns out that the service was having some issues and was currently unavailable.
+So I brought up that it would be nice if there was some place we could look to see if this service was currently having issues, like a dashboard. Like so many organizations do.
+We don't have a dashboard. So what we do is go look in a teams channel to see if somebody has posted about the issue. Which is all kinds of fraught with accuracy issues.
+One of the organization leaders said something to the effect of this is why it would be better for us to just replicate the data instead of having to rely on a service that might not have the SLAs that we do.
+I'd rather the service was just reliable and we didn't have to introduce another moving part involving moving the data from one place to another. Because we're having enough trouble getting this data to actually be accurate now we would have to check whether it's accurate and whether it's been replicated properly.
+This is not real-time data. This is reporting data. It's current to midnight of the current day.
+Which would you pick? What would you be asking for out of leadership?",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1vuri5v/duplicating_data_versus_service_reliability/
+"How to onboard as a new tech lead / Staff+ engineer
+I'm currently a Staff/TL at a FAANG company and moving to a similar TL role elsewhere.
+In my current role, I've built enough trust and context that setting direction and influencing decisions feels natural. My concern is how to rebuild that quickly when joining a new org with zero existing influence.
+For Staff+ engineers who've made a similar move: what concrete things helped you ramp up and establish credibility?
+Looking for specific actions---e.g. 1:1s with other TLs in week 1, picking an early technical win, spending the first month mostly listening, etc.
+Also interested in common mistakes to avoid.",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wm08m1/how_to_onboard_as_a_new_tech_lead_staff_engineer/
+"Interviewed candidates for ""AI engineer"" roles this week, my god is this really where our industry is going?
+So last week I was tinkering with how to change up our technical interview round. For the last few years we've been doing a small take home followed by a live coding session where we add a new requirement, minimal AI assistance allowed. However, in our company pretty much everyone is writing 100% of code using Claude now, so although we did used to get good signal from that test, it no longer feels representative of the day to day job developers are doing.
+I designed a new assessment which I casually showed to my manager and then suddenly got asked to run it with 3 candidates this week. The scenario is they have to review an agent generated PR that has been flagged as high risk due to it changing critical business logic, and there are bugs in there for them to catch at various levels of severity. We then look at how they drive the fixes and what their workflow is like.
+These particular roles we're currently hiring for are billed as ""AI Engineer"". There is something weird going on in my company politically where separate from the tech department that I work in a new ""AI native"" development team is being spun up to work on internal projects.
+What shocked me was that the candidates I interviewed this week are already way beyond the point of reading the code they generate in any capacity. They basically treat it like assembly language, while PRDs and ADRs are their new source of truth for system behaviours, and stuffing the AGENTS.md file with best practices plus some form of agentic review pipeline are the quality control.
+Code review is dead for them, they merge their own PRs once the automated checks pass. One person told me that my new interview was still not representative of what the job is now, and another one was pretty much unwilling to even engage in the assignment of reviewing a PR the old fashioned way. These guys were all previously senior and lead full stack engineers btw with a lot of experience prior the LLM revolution.
+Don't get me wrong, I too have adopted AI heavily in my own workflow. Until this week I actually thought I was pretty up to date with things, I use a supervising agent to manage multiple work streams in parallel, have my own local validation pipeline, etc. And to be honest for my personal projects I also don't bother looking at the code anymore, so I do get the excitement around how fast you can move with this approach. But for serious projects like the large scale, production grade financial software I work on in my day job it still seems insane to me that we're going to completely move away from human sign off on high risk changes so we can solve the ""code review bottleneck"".
+Like, I asked one of the candidates if you aren't looking at your code then how they would approach quality in a safety critical system where there can be no tolerance for serious bugs, and I shit you not he said to me, ""well if I was working in healthcare or sending to people into space then I'd definitely be looking closely at the code review skills, maybe I'd even write the skills myself"". That answer sounded utterly ridiculous to me? But then again, I was one of the people that 1 year ago believed the idea we'd stop typing code by hand was ridiculous as well...
+I wouldn't say the way my team does things right now is optimal, we can't ignore that code review fatigue is a major problem. To try and help I've been adding automated risk assessments to PRs in an attempt to highlight where more attention is needed, and review bots do help us catch issues as well. But abandoning the human 4 eyes check just feels like several bridges too far for us at the moment, especially when not everyone is senior engineer, and we still regularly get valuable feedback at this stage. Even if this does mean we're turning down an order of magnitude increase in short term velocity (does anyone really know yet what happens over multiple years when you have a team of 20 devs spamming PRs all day into a codebase with no one looking at any at it?).
+I'm left wondering this weekend, were these guys just cowboys who are only used to working on PoCs and low risk systems, or is my team actually 6-12 months behind the curve and this is the direction everyone is going to move in? I fear that if we don't embrace this new era of completely surrendering the codebase to the LLMs then this new team of AI devs is going to make us look bad by comparison to the execs and sooner or later we will be forced to adopt their methods as well. And at that point, the leap to having a product person or whoever taking over large parts of my role starts feeling a lot less far fetched...",personal_share,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wql3g2/interviewed_candidates_for_ai_engineer_roles_this/; borderline personal_share vs unsupported_opinion
+"How is the code quality in expensive frontier LLM plans?
+I have several years of software experience, following best practices, design patterns, KISS, DRY, BDD, OOP, etc. My code is actually very readable since I worked on many open source projects and heard praise overall, and always had the time for quality control and refactoring. **The truth is I haven't worked at a normal company since AI hit so I'm a bit detached currently from the industry.**
+For the last 1 year I've been using the Pro subscription for 20$ on Codex and Claude on my projects, but I find the quality of code subpar many times and I always have to intervene. It doesn't matter how many times I change the AGENTS.md, there's always issues in code readability and the AI missing obvious things and doing overengineered solutions.
+Still, I see in many subs about how great a new model does, etc. So I wonder if the more expensive plans actually produce better quality code? Feels like I'm missing something that people do in bigger companies.
+To be specific, high quality code == human readable code and comments and no naive implementations.",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wbfjtd/how_is_the_code_quality_in_expensive_frontier_llm/
+"Combining regular work in FAANG-adjacent company with side gigs in Mercor AI
+Curious about the experience of other engineers combining work at a pretty demanding company (classical FAANG-adjacent) and side gigs, like Mercor AI?
+My main question/worry is not about the side gig itself, but rather about mandatory disclosure to my employer (I am pretty sure any such company has it as a requirement in its code of conduct)
+The second question is Mercor AI in particular. Any experience with such side gigs?
+Edit 1:
+Location is Canada.",question,cold
+"Do you regret contributing to open-source?
+I have about 10-15 years of experience. I created some open source projects when I was starting out and maintained throughout the years.
+The net income from this long-term endeavour is $5 from another developer for a coffee, who messaged me that I saved him many hours of work - that was like 5 years ago.
+I now see that Meta, Apache and others use some of these open source projects.. and I haven't seen a single dime. This makes me think that if I actually instead aimed to create projects that make money, it would be a much better use of my time. Especially since I never had a stable job and mainly did freelance gigs to get by.
+Anyone else who regrets contributing to open source projects? Why is that? What would you have done instead?",personal_share,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wkhl9v/do_you_regret_contributing_to_opensource/; borderline personal_share vs question
+"Is gaming developer productivity metrics really a worthwhile battle?
+Coming to all experiences devs to answer this question and how people are going about things like this...
+With AI in the picture (a tired conversation), of course management has fallen hook, line and sinker for every single way of tracking developer productivity.. which in my opinion just stunts productivity overall.
+They've reintroduced lines of code as a metric but with a twist is - how many days you have used AI (any coding tool such as codex, Claude) but also how many lines of code have been generated WITH AI. The less number of days and fewer lines of code generated with AI puts you into a category and looks bad on a dashboard. This in turn has led to conversation of how we increase these numbers which has led to: do not manually code under any circumstance and do everything with AI (and ""everything"" meaning exactly that).
+On top of needing more lines of code generated with AI (otherwise we look bad) we are expected to have 10+ PR's a week.
+My gripe with this is that instead of improving the codebase or helping the business or delivering features you also have to spend time figuring out how you can split a 100-line function into 5 PR's so you don't look awful on a dashboard. A simple bug fix or config update needs to be written in a spec otherwise there is no value.
+I see some people have mentioned in this sub before you just take a sort maliciousness to all of this and let AI run wild. Write python scripts to auto-create PR's. Set a variable with 0 and for each PR increase it by 1. If you need to add two numbers, let AI write 3 functions to do it because more lines of code. And more lines of code WITH AI is somehow better. Which of course makes the codebase buggy and harder to add anything useful.
+All just to meet the metrics. But some of this is just way more work than required. I'm trying to see how any of this is worthwhile, while today it might be lines of code, tomorrow it's how many mouse clicks you have in your IDE every hour. Do people really see this as a worthwhile battle or even trying to make management understand this is not a good idea?",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wec6ba/is_gaming_developer_productivity_metrics_really_a/
+"Multiple rescheduled interviews?
+I know the rule is ""no FAANG questions"", but I'm not sure it's FAANG-specific.
+I've been interviewing for SDE3 (Senior) role at Amazon. There are 5 interviews, I did 4 of them (no feedback), but the 5th one is getting rescheduled for the 3rd time now! I suppose it's for the System Design, but does anyone have experience with this? Have they laid off so many people that they can't find anyone to interview these days?
+It's been 5 months since I'm out of job and the responses have generally been very dry so far, so I was very excited for the opportunity. This is nerve-wracking for me, to the point I can't really force myself to look at anything interview-related right now.
+Any suggestions? Anything I can read from this?",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wax71o/multiple_rescheduled_interviews/
+"Joined a Fortune 500 company and struggling to adapt
+Hi all,
+I'm a 7 YOE hardware/embedded engineer who recently joined a Fortune 500 company after a few years in an Research & Technology Center. It has been a few months that I'm working in a new environment, trying to ramp up as fast as possible, however I'm always surprised by some lack of professionalism:
+* No one seems to care and somehow tries to wing it, the more vocal the better.
+* When I ask people around, they don't know, so I'm on my own to learn everything from scratch again.
+* Whenever I try to take ownership to solve some problems like electronics problems & understand the root cause, people tell me it's out of my scope and I should not tackle it. However, it still affects what & when I can deliver my software.
+* Design specs, processes, reviews, etc. seems to be not applied anymore.
+* Everything takes age to do, it is always urgent and nothing is documented.
+The main purpose of this post is to ask engineers seasoned to corporate environment:
+* ·How to maintain sharp technical skills in a place which only cares about delivering and pushing stress on people.
+* If I need to understand something correctly, I push myself to understand in my free time, otherwise I feel that I'm losing my time on stupid stuff.
+* How to adapt in such an environment, (I used to take pride in my work, however here it doesn't seem to be valued) ?
+Thanks a lot for your attention.",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1vwdh87/joined_a_fortune_500_company_and_struggling_to/
+"How to ingest large AI code changes safely
+AI generated ~30,000 LOC.
+It crushes benchmarks compared to our current software, but it requires large architectural changes. previously the benefits were speculative, now I have solid evidence they can be realized. They would reduce the complexity of the product while cutting in half our operating costs. win win.
+I would at some point have these changes to benefit from them.
+I would like to avoid choking to death on them.
+The options I can see are:
+1. rewrite from scratch, using it as a reference if we get stuck. Will take a long time.
+2. break it up and merge it 500 - 1000 LOC at a time. will take 30 to 60 PRs but is at least conceivably responsible.
+3. merge blindly (just kidding)
+Am I missing anything? I've been pruning and compressing the changes as much as possible. But this seems daunting. Currently we are going to try 2 and if it doesn't work will abort to 1.
+If anyone has discovered the ""right"" way to do this, would love to hear about it. Right now I am treating it like 30,000 LOC a mysterious stranger dropped off on my desk in an envelope with compelling benchmarks.",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wjcu9t/how_to_ingest_large_ai_code_changes_safely/
+"I’m coding my replacement
+Well, it’s finally happened. I am starting to code my replacement via AI, that’s my current task at work. And I think im excited. Because I really truly want an AI that can do things for me at the push of a button.
+Like that is the goal right? For anyone to go “I want this thing” and be enabled to get that thing? I think we lost sight of that goal. Like AI I see as a means to an end. But a lot of people see it as the end. They see it and think “I can push that button and replace all the creativity and spark and life that humans give to things.”
+We are so deep in ways this technology is nowhere close approaching. Love, compassion, respect, fun. Things that can’t be quantified, that make us human.
+We lose that depth if we make it the end. If we replace ourselves entirely with AI. We can’t view AN output as THE output. We have to keep pushing. Keep thinking and growing and improving the technology. That’s what we do.
+Don’t think for a moment that others won’t. If you step back from the technology, you allow others to shape it’s use and standard. If you remove yourself entirely to the possibilities, you shut off every possibility.
+This post was written without AI. I do not use it for any communication, at all. I do not want my words guided by anything other than my thoughts.
+I would not think less of anyone using it in this regard, at least in good faith. I think to argue against all AI communication use, is a very ableist stance (much as I would like to, as writing is a skill I consider myself to have).
+This is very nuanced, I want everyone to have the ability to do anything. I think that we will always find better, bigger things to do. I think we can become an intergalactic civilization, eventually, if we push ourselves.
+Short term fighting over technology will exhaust the potential of anyone looking to change the future for the better. Don’t argue against AI use. Argue against bad AI use.",unsupported_opinion,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1uqu8sy/im_coding_my_replacement/; borderline unsupported_opinion vs personal_share
+"Learning to let go
+I'm trying to change an instinct I've spent years developing.
+When I see a design problem, unnecessary complexity, or a better model, I naturally want to fix it. Doing the minimum requested and knowingly leaving something worse than it could be feels wrong to me.
+But I'm increasingly convinced that the strategically correct move inside many companies is: do what's asked, raise the concern once, then let it go.
+I'm trying to work that way now.
+It makes sense intellectually. I still dislike it.
+With AI making implementation cheaper and delivery faster, I'm curious whether other experienced developers are going through the same adjustment.
+Have you changed what ""doing a good job"" means to you?",personal_share,cold
+"How I should've handled this situation
+<br />
+In our company, there is a custom tool managed by the support team. Its job is to perform HC, tracing, and deployment data collection. I would also mention that New Relic and OpenTelemetry are already available at the enterprise level, but production support insists that integration with this tool is mandatory.
+They recently introduced a change where a deployment component should also send all the packages it is using as part of the deployment data. The thing is, getting dependencies post-deployment is slow because we are using mvn dependency. As an engineer, I was concerned about the additional time this would take. So, in a meeting with the tool team, I asked why we need to send the dependencies in the first place when we already have that data in the Sonatype report. Why duplicate the information?
+One of the team members responded rather sharply: ""Do you think that during a production issue, someone will log in to the report UI and get the details? Do you even know why we are putting it here? This is needed for auditing.""
+I told him that I understood the requirement, but my concern was with the process that one of the teams had implemented using mvn dependency and that they were asking us to implement in the same way. It is slow, and even if I run it as an asynchronous job, it would still be a waste of resources.
+At this point, he said that this was mandatory and that if I thought otherwise, I should send an email and CC my manager, architect, and director. I didn't say anything after that.
+What should I have done, or what should I do now?
+Implement whatever they asked for---it's a job, after all. Who cares?
+Implement it using a different approach. It will take some time, but it might be possible.
+Or something else?
+Since it is an internal tool, there is no proper documentation---just a few references here and there.
+This doesn't break out pipeline as their api doesn't say it is mandatory.",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1vrv1bu/how_i_shouldve_handled_this_situation/
+"Realized my manager doesn't understand what I do
+I had a conversation with my manager last week that made me realize he has little understanding of what I do, what my contributions are, or why they may or may not stand out.
+I'm a lead of a small team, and our projects are pretty isolated from what the rest of the company is working on. We were also running well as a team before we moved to his downline. As a result, he's never had much need to interact with our team in our day-to-day. We kinda just keep the lights on and tackle new features for internal analytics and strategy teams as fast as we reasonably can.
+Now I'm worried about what this means for my career growth. When he talked about my recent projects, he clearly didn't know what was challenging about them or what my specific contributions were. When I asked for guidance on how to grow, his advice was so generic it was basically meaningless.
+I've never been in this position before, where my manager isn't getting a daily signal on how I'm performing. Those of you who report to non-ICs, non-technical people, or devs from outside your team, how do you communicate your impact upward? How do you get effective coaching?",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1vt504g/realized_my_manager_doesnt_understand_what_i_do/
+"Thorsten Ball's predictions of programming
+Code review will die. I mean: it's already dead. But in the future, humans won't find a bug or an issue with the code produced by a model, at least not in a reasonable time. Humans will only review the system and its composition, but it won't be in PRs and it won't be by looking through every line of the code.
+
+Unit tests might die too. Why have training wheels if you never fall over? I've had models write 900 lines of Arduino C, compile it without a single error, and send it to the device, where the program ran perfectly. 900 lines will be nothing in the future.
+
+The craft of writing code will disappear. Yes, there are still Italian shoe makers around. But look at your feet.
+
+The craft of building software will be more important than ever. Knowing how to solve business problems with software, how other software did it and why and why not, when and how to ship it, how to get feedback on it -- that's the new game.
+
+Most bugs won't be ""coding"" bugs. They'll be ""you asked for the wrong thing"" bugs.
+
+Open source in it's current form doesn't make sense anymore. ""Given enough eyeballs, all bugs are shallow"" is still true but now we have artificial eyeballs.
+
+Performance critical contributions by humans will stay what they are: an edge case. In 99% of software it does not matter that you could've written a faster algorithm or picked a better data structure. You have no customers, no users, no one's executing the code. It does not matter. When it matters, the models can fix it. Do not compare the top of the top 1% of software (developers) to 99%.
+
+The terminal is dead. Most developer tooling will be washed away by tokens. Shells, text editors, CLI tools won't be used by humans anymore. There's no need to know command line flags and jq invocations anymore. It'll be seen as arcane as knowing how to write everything as a Perl one-liner. (I'm saying this as a lover of the terminal & dev tools.)
+
+Tokens are the new computing paradigm. Everything will be re-made on top of it. We've had deterministic computers for 80 years, so we confuse ""how computers have worked"" with ""how computers must work."" We're entering the post-binary era.
+
+The triad of PM/Design/Eng will disappear. It does not make any bit of sense anymore. Agile, SCRUM, whatever -- dead. ""Engineers"" who act as ""meat proxies"" and shove tickets into agents and report back to humans will no longer be valuable.
+
+The difference between software engineering at large corporations and small ones will increase. Start-ups adopting practices of Google will look even sillier than before, because they can now build so much faster and with so much less constraints.
+
+There's no proof that ""good code"" will matter in the future. The notion of ""good code"" itself is mostly based on the idea that it's easy/cheap/efficient for humans to work with. But humans won't modify the majority of code. Think of how dumb it is to assume that ""only 80 columns wide"" or ""but newlines here and there"" matters for agents -- now consider all the other properties you have in mind for ""good code"". Yes.
+
+Some people will be priced out of producing software. Just like only some people could afford a personal computer in the 80s and 90s, for the next few years, if you can't get enough tokens, you're playing second league. You need to get to the tokens.
+
+It's questionable whether cheaper models will be used. Tokens will be everywhere and we'll swim in tokens. And what we consider a smart model today will be considered very dumb in the future. But a smarter model makes less mistakes, needs fewer turns. When do you really think ""I'm okay with it being wrong a few times?""
+
+Models will become so fast that UI will be generated on the fly. A lot of UI exists because software can't understand what you want. Menus, settings screens, dashboards, filters: much of it is a human-accessible API to a dumb machine. Smart machines need much less UI.
+
+It'll take a while for this to play out. It'll take a generation for the ""new software"" to replace the ""old software"". Just like there are people happily employed as ASP developers today, there will be people employed to write code in 10 years. But do you want to have that job",unsupported_opinion,cold
+"Cache Pattern with Event-Driven System
+Hey everyone, noticed this common pattern throughout our applications and it seems problematic to me. It‘s present across multiple apps; curious everyone’s thoughts, if this is a common pattern I’m not familiar with or if it truly is a bad solution.
+Senior SE w/ 4 YOE, Fortune 500 company.
+Pattern is as follows:
+App A receives a transaction from upstream. It will then format this event and send it to potentially multiple downstream services simultaneously. This is done asynchronously via an event-driven framework.
+The downstream services respond back via events; how does app A know when all the downstream services are complete? How does it know anything about the original event, since the downstream response contains no info about the original event (other than the correlationId)?
+The answer is a local cache in app A. It caches the event when first received, and as downstream events come back, it can refer back to the original cached value to determine when it’s done processing and can be sent back upstream.
+The main problem I see is the microservice is no longer stateless. It requires context from the original event. If it received a downstream response with no context, it has no idea what to do.
+This is the most egregious example, but this cache-to-compensate-async-events pattern is repeated multiple times in similar ways.
+As I’m still new to the field, I’m curious if this is somewhat a standard? Or if it is bad practice? If so, what does a good solution look like? Switching to sync REST calls fixes the issue, but could impact performance/throughput",argued_opinion,cold
+"AI has made the 80/20 rule so much worse. It's killing my passion for creative projects
+You know how it goes. 20 percent of the effort gives you 80 percent of the result, the last 20 percent require 80 percent of the effort
+With AI it feel like you get the first 80 percent almost for free, but the amount of effort required to make the last 20 percent to get a great result instead of mediocre feels so huge in comparison that it pushes you to start accept the mediocre results. Because that's what your competitors are doing and mediocre is good enough for the business given the low cost
+I recently saw a vibecoded game with a very similar concept to what I was tinkering on in my spare time for a few years now. It's garbage in terms of polishing, UX, implementation, design, but it works, and gives you the core of the experience. And my project is still months away from being a complete game, even though I'm also leveraging AI tools, just with a much higher quality bar, still putting thought in every little piece
+If I would accept the same quality bar, I could also finish the game in less than a few months, but it won't be something I would be proud of. I care deeply about making the best product possible, but now it feels like I won't be able to compete with people using AI to push mediocre stuff quickly
+This is not exactly a new issue, business was always at odds with cost vs quality, but the problem is getting so much worse. I noticed this not only in my work, but in general across industry. It feels like we're moving more and more towards accepting slop, great polished products are becoming few and far between
+I'm feeling so frustrated about the current state of the industry, it's actually making me depressed. Creativity and building things was my greatest passion in live, and it was a dream of mine to make a living building stuff I'm passionate about, but now it just feels like a dead end, and I have no idea what I even want to do in my life anymore",argued_opinion,discussed; https://www.reddit.com/r/ExperiencedDevs/comments/1x5wsix/ai_has_made_the_8020_rule_so_much_worse_its/
+"Thinking of backup plans
+So i'm a senior software engineer with almost 9 years of experience, mostly backend stuff, a lot of AWS, serverless, Node.js and JavaScript in general. Lately i've been watching how fast everyone is adopting AI and honestly it's making me less interested in this field, or at least less sure about where it's going, and i don't want to just sit around waiting to see if i end up on a layoff list.
+What i really want is a backup plan, something i can lean on if things go sideways, and ideally a path where the demand is more stable. I've been thinking about cloud or solutions architect roles, maybe DevOps or platform engineering, and cybersecurity has been on my mind too, but i'm not sure which of those actually hold up better long term or if i'm just chasing titles.
+For those of you who made a move like this from backend, what did you go into, how did you get there, and what should i be learning or doing now so i'm not the one who gets cut? Any honest takes appreciated.",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1w6w5hb/thinking_of_backup_plans/
+"Job requires/uses very little AI. Sinking ship or goldmine?
+At the place I work, we have no requirements to use AI. Some people do, some people don't, but overall the expectations are minimal.
+Personally I use it as a search-engine and occasionally have it generate tests, but I still write 99% of my own code and have never used an ""agent"".
+On one hand I am glad to be in a shop where I'm not just pressing ""enter"" all day, on the other hand, I worry about falling behind in the job/skills market. Also, our laptops are fairly locked down, so I can't start spinning up agents or running different models locally. My hands are a bit tied.
+What would you do in this situation? Is anyone else in a similar one? Right now I'm just kind of coasting but something in me feels like I'm being left behind...",question,pre-labeled; https://www.reddit.com/r/ExperiencedDevs/comments/1wo4d8p/job_requiresuses_very_little_ai_sinking_ship_or/
+"[Meta] This sub is being taken over by LARPers, hobbyists, and students
+I've been a lurker here since pretty much it started gaining traction.
+And it's becoming very obvious that it's increasingly turning into [r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/) where anyone with even a couple years of experience as a developer could tell that an ever growing number of these people have never been paid to be a developer at a company in their lives.
+This is how nearly every comment chain goes now:
+1. Arguments/Debates/Discussions are started by Person A, as they should.
+2. Person M, who is completely out of touch with how things work replies with something ridiculous.
+3. Person A or Person B, replies to them, who very obviously has experience and breaks it down for them ELI5 style.
+4. Person M doesn't understand any of what they said, so they say something else more ridiculous.
+5. Go back to 2 and repeat until Person A or B gives up.
+I don't have a solution, but any Person B's out there should understand that stating an issue doesn't require one.",unsupported_opinion,discussed; https://www.reddit.com/r/ExperiencedDevs/comments/1x2s9oh/meta_this_sub_is_being_taken_over_by_larpers/
+"Massive AI bills, for what?
+Reposting. Last post was deleted because I didn't have a user flair.
+I work at a non faang big tech company. Like everybody else we have a way to track ai usage/cost. The monthly trend seems to be half in the low three figures while the other half are in the low four figures with very few people in between. The higher group spends about 7 - 8x more. I fall into the former group. but there doesn't seem to be any difference in productivity between the two groups. And in fact engineers from the lower group routinely seem more productive than the higher spenders. I have two terminals working on tasks continuously through most of the day and can't break 4 figures. Having more than 2 - 3 concurrent tasks is just too much for me to keep up with. For people that fall into a higher spending bracket what is it about your workflow that's causing this? And has anyone else noticed a similar trend? For people in management, what is your perspective on employees spending thousands a month without very visible returns on productivity? And conversely how do you view the engineers not spending as much?
+Edit: when I say productivity I'm not referring to metrics like pr count or loc. I think those are terrible ways to measure impact. More along the lines of how well are people pushing projects forward, collaborating, how well do they understand the system etc",question,discussed; https://www.reddit.com/r/ExperiencedDevs/comments/1x65khe/massive_ai_bills_for_what/

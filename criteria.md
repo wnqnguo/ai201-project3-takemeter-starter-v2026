@@ -53,61 +53,41 @@ whether you hit them:
 
 ## 1.
 
-<!-- Your criterion. It must name a number. -->
+Every label has an F1 of at least 0.55 on the held-out test split.
 
-
-
-**Why this target:**
-
-
+**Why this target:** With four labels, random guessing scores about 0.25 per label, so 0.55 is clearly better than chance. I expect my thinnest label to have only about 7 or 8 posts in the test split, so its score will swing between seeds, which is why I'm not setting the bar higher.
 
 ---
 
 ## 2.
 
-<!-- Your criterion. -->
+Overall accuracy on the held-out test split is at least 70%.
 
-
-
-**Why this target:**
-
-
+**Why this target:** Random guessing gets about 25%, and always guessing my biggest label would get about 40%, so 70% is well above both. It is deliberately ambitious: `personal_share` vs. the opinion labels and `question` vs. the opinion labels are fuzzy boundaries, and I expect to miss it if my labels are noisy.
 
 ---
 
 ## 3.
 
-<!-- Your criterion. -->
+The smallest label has at least 50 examples in `labels.csv`.
 
-
-
-**Why this target:**
-
-
+**Why this target:** The test split is 15%, so 50 examples gives about 8 in test, which is where the notebook starts to flag a label as too thin. I have seen a lot of `question` posts in r/ExperiencedDevs, so I expect to have to collect the other types on purpose.
 
 ---
 
 ## 4.
 
-<!-- Your criterion. -->
+When I label the staff's 30-post set, I agree with the staff label on at least 20 of 30.
 
-
-
-**Why this target:**
-
-
+**Why this target:** 20 of 30 is about 67%. My decision rule is new, and the staff set includes deliberately ambiguous posts, so I am not aiming for near-perfect agreement. I want to find out where my rule is loose.
 
 ---
 
 ## 5.
 
-<!-- Your criterion. -->
+On the test split, the half of predictions with the highest confidence is more accurate than the lowest-confidence half by at least 10 points.
 
-
-
-**Why this target:**
-
-
+**Why this target:** A confident prediction should be right more often than an unsure one. The test split is about 30 posts, so each half is about 15 and one post moves accuracy by about 7 points. A gap under about 10 could be luck.
 
 ---
 

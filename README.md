@@ -42,7 +42,7 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-
+TakeMeter sorts posts from r/ExperiencedDevs, a public subreddit where working software engineers discuss careers, teams, and engineering practice. It labels each post by what kind of post it is and how well it is supported: an opinion backed by something specific, an opinion with nothing behind it, venting, or a question. The goal is to tell substantial posts from noise the way a regular of the community would, using distinctions I can state in a sentence and apply the same way twice.
 
 ---
 
@@ -54,35 +54,58 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+<!-- DRAFT: working labels and definitions from Milestone 1. Replace the
+     example placeholders with real posts from r/ExperiencedDevs, and tighten
+     the definitions in Milestone 2. -->
 
-**Definition:**
+### `argued_opinion`
 
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** A claim someone could argue with, backed by something specific such as a number, a real experience, or a named tool or incident.
 
 **Example 1:**
->
+> TODO: paste a real post
 
 **Example 2:**
->
+> TODO: paste a real post
+
+### `unsupported_opinion`
+
+**Definition:** A confident claim someone could argue with, with nothing specific offered to support it.
+
+**Example 1:**
+> TODO: paste a real post
+
+**Example 2:**
+> TODO: paste a real post
+
+### `venting`
+
+**Definition:** A post that mainly expresses frustration or feeling rather than making a claim to argue.
+
+**Example 1:**
+> TODO: paste a real post
+
+**Example 2:**
+> TODO: paste a real post
+
+### `question`
+
+**Definition:** A post that mainly asks for help, advice, or information rather than making a point.
+
+**Example 1:**
+> TODO: paste a real post
+
+**Example 2:**
+> TODO: paste a real post
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `venting` vs. the two opinion labels (many vents carry a claim, and many opinions are written angrily). Second candidate: `argued_opinion` vs. `unsupported_opinion`.
 
 **The decision rule I used every time:**
 <!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
      if the tone is heated." -->
-
-
+Draft: if the post makes a claim someone could argue with, it is an opinion even when the tone is angry; if it mainly expresses a feeling, it is `venting`. Within opinions, it is `argued_opinion` only if the support is specific (a number, a real experience, a named tool or incident), otherwise `unsupported_opinion`.
 
 ---
 
@@ -91,7 +114,7 @@
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** Public posts from r/ExperiencedDevs, sampled across New, Hot, and Top so weak posts are included.
 
 **How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
 Say so plainly — the disclosure is required, not penalised. -->
